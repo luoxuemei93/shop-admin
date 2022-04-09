@@ -9,16 +9,20 @@
     <el-card>
       <el-row>
         <el-button class="btn-cls" size="small" type="danger" @click="removeShopCar" :disabled="checkedShops.length==0">移出购物车</el-button>
-        <el-button class="btn-cls" size="small" type="primary" @click="createOrder">确定下单</el-button>
+        <el-button class="btn-cls" size="small" type="primary" @click="createOrder" :disabled="checkedShops.length==0">确定下单</el-button>
       </el-row>
       <!-- 卡片 -->
       <div class="card-box">
         <el-checkbox
+          v-if="shopCardList.length> 0"
           :indeterminate="isIndeterminate"
           v-model="checkAll"
           @change="handleCheckAllChange"
           >全选</el-checkbox
         >
+        <div class="shop-empty" v-if="shopCardList.length == 0"> 
+          购物车为空，请添加商品到购物车后，再进行下订
+        </div>
         <el-checkbox-group v-model="checkedShops" @change="handleCheckedChange">
           <el-checkbox v-for="(shopItem,index) in shopCardList" :label="shopItem.goodsId" :key="index">
             <div class="card-item">
@@ -56,15 +60,40 @@ export default {
   methods: {
     // 查询购物车
     async getShopCardInfo() {
-     const { data: res } = await this.$http.post("user/getShopCar");
+      this.checkAll =false;
+      const { data: res } = await this.$http.post("user/getShopCar");
       if (res.status != 0) {
         return this.$message.error("获取商品列表失败！");
       }
       this.shopCardList = res.results;
     },
     // 生成订单
-    createOrder() {
-
+    async createOrder() {
+      if(this.checkedShops.length == 0) {
+        return;
+      }
+      this.$confirm('是否确认生成订单?', '提示', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'warning'
+        }).then( async() => {
+          const ary = [];
+          for(let index in this.checkedShops) {
+            ary.push(this.checkedShops[index]);
+          }
+          const aryStr = ary.join(",");
+          const params = {
+            orderCode: new Date().getTime() ,
+            goodsIdStr: aryStr
+          }
+          const { data: res } = await this.$http.post("user/addOrder", params);
+          if (res.status != 0) {
+            return this.$message.error("订单生成失败！");
+          } else {
+            await this.removeShopCar();
+            this.$message.success("订单生成成功！");
+          }
+        }).catch(() => { });
     },
     // 移出购物车 
     async removeShopCar() {
@@ -79,7 +108,6 @@ export default {
       const params = {
         goodsIdStr: aryStr
       }
-      console.log(params);
       const { data: res } = await this.$http.post("user/removeShopCar", params);
       if (res.status != 0) {
         return this.$message.error("删除失败！");
@@ -134,6 +162,12 @@ export default {
     overflow-x: hidden;
     align-content: flex-start;
     padding: 10px 0px;
+    .shop-empty {
+      padding: 50px;
+      color: #d5d9e3;
+      width: 100%;
+      text-align: center;
+    }
     .card-item {
       border: 1px solid #d5d9e3;
       border-radius: 8px;
