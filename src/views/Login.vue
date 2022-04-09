@@ -40,24 +40,11 @@ export default {
       loginFormRules: {
         // 验证用户名是否合法
         userName: [
-          //trigger失去焦点 ，required必填项
           { required: true, message: "请输入登录名称", trigger: "blur" },
-          // {
-          //   min: 3,
-          //   max: 10,
-          //   message: "长度在 3 到 10 个字符",
-          //   trigger: "blur",
-          // },
         ],
         // 验证密码是否合法
         password: [
           { required: true, message: "请输入登录密码", trigger: "blur" },
-          // {
-          //   min: 6,
-          //   max: 15,
-          //   message: "长度在 6 到 15 个字符",
-          //   trigger: "blur",
-          // },
         ],
       },
     };

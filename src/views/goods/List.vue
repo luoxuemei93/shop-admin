@@ -32,7 +32,7 @@
         <div class="card-item" v-for="(item, index) in goodslist" :key="index">
           <img
             :src="network.defaults.baseImgURL + item.goodsImgUrl"
-            style="min-width: 80px; height: 100px"
+            class="card-img"
           />
           <div>商品名称：{{ item.goodsName }}</div>
           <div>商品价格(元)：{{ item.goodsPrice }}</div>
@@ -75,8 +75,19 @@ export default {
       this.goodslist = res.results;
     },
     // 加入购物车
-    addShop(item) {
-      console.log(item);
+    async addShop(item) {
+      const params = {
+        ...item,
+        orderNum: item.orderNumDefault,
+        orderNumDefault: undefined,
+      }
+      console.log(params);
+      const { data: res } = await this.$http.post("user/addShopCar", params);
+      if (res.status == 0) {
+        return this.$message.success("添加成功");
+      } else {
+        return this.$message.error("获取失败！");
+      }
     },
     // 查看购物车
     viewMyShop() {
@@ -135,6 +146,10 @@ export default {
       &>div{
         text-align: left;
         margin: 5px 0px;
+      }
+      .card-img {
+        min-width: 80px;
+        height: 100px
       }
     }
   }
