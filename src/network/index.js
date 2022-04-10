@@ -8,7 +8,10 @@ axios.defaults.baseURL = baseIPPortUrl+'/api/'
 axios.defaults.baseImgURL = baseIPPortUrl+'/images/'
 axios.interceptors.request.use(config => {
   NProgress.start()
-  config.headers.Authorization = window.sessionStorage.getItem('token')
+  // 后台nodejs的hander属性，全都是小写或者"-"连接
+  config.headers.authorization = window.sessionStorage.getItem('token')
+  config.headers.username = window.sessionStorage.getItem('userName')
+
   // 在最后必须 return config
   return config
 })

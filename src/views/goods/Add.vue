@@ -130,7 +130,7 @@ export default {
       uploadURL: "http://127.0.0.1:8888/api/private/v1/upload",
       // 图片上传组件的headers请求头对象
       headerObj: {
-        Authorization: window.sessionStorage.getItem("token"),
+        authorization: window.sessionStorage.getItem("token"),
       },
       previewPath: "",
       previewVisible: false,

@@ -6,7 +6,10 @@
         <img src="../assets/admin.png" alt="" />
         <span>电商后台管理系统</span>
       </div>
-      <el-button type="primary" @click="logout">退出</el-button>
+      <div>
+        <span class="user-cls">{{userName}}</span>
+        <el-button type="primary" @click="logout">退出</el-button>
+      </div>
     </el-header>
     <!-- 页面主体区域 -->
     <el-container>
@@ -87,10 +90,12 @@ export default {
       isCollapse: false,
       // 被激活的链接地址
       activePath: "",
+      userName: "",
     };
   },
   created() {
     this.activePath = window.sessionStorage.getItem("activePath");
+    this.userName = window.sessionStorage.getItem("userName");
   },
   methods: {
     logout() {
@@ -132,6 +137,11 @@ export default {
     span {
       margin-left: 15px;
     }
+  }
+  .user-cls {
+    display: inline-block;
+    margin: 0px 10px;
+    font-size: 14px;
   }
 }
 
