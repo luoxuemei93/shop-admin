@@ -34,11 +34,24 @@
             :src="network.defaults.baseImgURL + item.goodsImgUrl"
             class="card-img"
           />
-          <div>商品名称：{{ item.goodsName }}</div>
-          <div>商品价格(元)：{{ item.goodsPrice }}</div>
-          <div>商品单位：{{ item.goodsUnit }}</div>
-          <div>商品单位：{{ item.goodsImgUrl }}</div>
-          <div>订购数量： <el-input-number v-model="item.orderNumDefault" size="mini" controls-position="right" :min="1" label="订购数量" style="width:100px;"></el-input-number></div>
+          <div class="item-attr">
+            <span class="label">商品名称：</span>
+            {{ item.goodsName }}</div>
+          <div class="item-attr">
+            <span class="label">商品价格(元)：</span>
+            {{ item.goodsPrice }}</div>
+          <div class="item-attr">
+            <span class="label">商品单位：</span>
+            {{ item.goodsUnit }}
+          </div>
+          <div class="item-attr">
+            <span class="label">商品单位：</span>
+            {{ item.goodsImgUrl }}
+          </div>
+          <div class="item-attr">
+            <span class="label">订购数量： </span>
+            <el-input-number v-model="item.orderNumDefault" size="mini" controls-position="right" :min="1" label="订购数量" style="width:100px;"></el-input-number>
+          </div>
           <el-button type="primary" @click="addShop(item)" size="mini" round>加入购物车</el-button>
         </div>
       </div>
@@ -81,7 +94,6 @@ export default {
         orderNum: item.orderNumDefault,
         orderNumDefault: undefined,
       }
-      console.log(params);
       const { data: res } = await this.$http.post("user/addShopCar", params);
       if (res.status == 0) {
         return this.$message.success("添加成功");
@@ -143,9 +155,14 @@ export default {
       padding: 10px;
       margin: 10px 10px 10px 0px;
       text-align: center;
-      &>div{
+      .item-attr{
         text-align: left;
         margin: 5px 0px;
+        color: #111;
+        font-size: 14px;
+        .label {
+          color: #606266
+        }
       }
       .card-img {
         min-width: 80px;
