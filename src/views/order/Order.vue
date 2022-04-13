@@ -46,9 +46,9 @@
         @size-change="handleSizeChange"
         @current-change="handleCurrentChange"
         :current-page="queryInfo.pagenum"
-        :page-sizes="[5, 10, 15]"
+        :page-sizes="[10, 15]"
         :page-size="queryInfo.pagesize"
-        layout="total, sizes, prev, pager, next, jumper"
+        layout="total, sizes, prev, pager, next"
         :total="total"
       >
       </el-pagination>
@@ -83,7 +83,6 @@ export default {
   methods: {
     async getOrderList() {
       this.orderlist = [];
-      this.total = 0;
       const { data: res } = await this.$http.post("user/getOrder", this.queryInfo);
       if (res.status == 0) {
         this.orderlist = res.data.results;
