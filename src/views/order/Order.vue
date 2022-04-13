@@ -11,8 +11,8 @@
     <el-card>
       <el-row>
         <el-col :span="8">
-          <el-input placeholder="请输入内容" v-model="queryInfo.query">
-            <el-button @click="getOrderList" slot="append" icon="el-icon-search"></el-button>
+          <el-input placeholder="请输入订单号内容" v-model="queryInfo.orderCode">
+            <el-button @click="search" slot="append" icon="el-icon-search"></el-button>
           </el-input>
         </el-col>
       </el-row>
@@ -82,10 +82,17 @@ export default {
   },
   methods: {
     async getOrderList() {
-      const { data: res } = await this.$http.post("user/getOrder");
+      this.orderlist = [];
+      this.total = 0;
+      const { data: res } = await this.$http.post("user/getOrder", this.queryInfo);
       if (res.status == 0) {
-        this.orderlist = res.results;
+        this.orderlist = res.data.results;
+        this.total = res.data.total;
       } 
+    },
+    search() {
+      this.queryInfo.pagenum = 1;
+      this.getOrderList();
     },
     handleSizeChange(newSize) {
       this.queryInfo.pagesize = newSize;
