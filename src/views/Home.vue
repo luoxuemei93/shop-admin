@@ -67,7 +67,7 @@ export default {
       // 左侧菜单数据
       menulist: [
         {id: 1,authName: "商品管理", children:[
-          // {id: "categories",path: "categories",authName:"商品分类"},
+          {id: "categories",path: "categories",authName:"商品分类"},
           // {id: "params",path: "params",authName:"参数列表"},
           {id: "goods",path: "goods",authName:"商品管理"},
           {id: "shop",path: "goods/shop",authName:"我的购物车"},
