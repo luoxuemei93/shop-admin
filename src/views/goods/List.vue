@@ -35,21 +35,14 @@
             class="card-img"
           />
           <div class="item-attr">
-            <span class="label">商品名称：</span>
+            <span class="label">名称：</span>
             {{ item.goodsName }}</div>
           <div class="item-attr">
-            <span class="label">商品价格(元)：</span>
-            {{ item.goodsPrice }}</div>
-          <div class="item-attr">
-            <span class="label">商品单位：</span>
+            <span class="label">单位：</span>
             {{ item.goodsUnit }}
           </div>
           <div class="item-attr">
-            <span class="label">商品单位：</span>
-            {{ item.goodsImgUrl }}
-          </div>
-          <div class="item-attr">
-            <span class="label">订购数量： </span>
+            <span class="label">数量： </span>
             <el-input-number v-model="item.orderNumDefault" size="mini" controls-position="right" :min="1" label="订购数量" style="width:100px;"></el-input-number>
           </div>
           <el-button type="primary" @click="addShop(item)" size="mini" round>加入购物车</el-button>
@@ -155,6 +148,8 @@ export default {
       padding: 10px;
       margin: 10px 10px 10px 0px;
       text-align: center;
+      height: 240px;
+      overflow: auto;
       .item-attr{
         text-align: left;
         margin: 5px 0px;

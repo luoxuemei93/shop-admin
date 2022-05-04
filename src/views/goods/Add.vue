@@ -29,9 +29,6 @@
             <el-form-item label="商品名称" prop="goods_name">
               <el-input v-model="addForm.goods_name"></el-input>
             </el-form-item>
-            <el-form-item label="商品价格" prop="goods_price">
-              <el-input v-model="addForm.goods_price" type="number"></el-input>
-            </el-form-item>
             <el-form-item label="商品重量" prop="goods_weight">
               <el-input v-model="addForm.goods_weight" type="number"></el-input>
             </el-form-item>
@@ -126,8 +123,8 @@ export default {
       manyTableData: [],
       // 静态属性列表数据
       onlyTableData: [],
-      // 上传图片的URL地址
-      uploadURL: "http://127.0.0.1:8888/api/private/v1/upload",
+      // 上传图片的URL地址http://192.168.10.107:8081
+      uploadURL: "http://192.168.10.107:8888/api/private/v1/upload",
       // 图片上传组件的headers请求头对象
       headerObj: {
         authorization: window.sessionStorage.getItem("token"),
