@@ -29,7 +29,6 @@
               <div style="margin: 15px 0">
                 <img class="card-img" :src="network.defaults.baseImgURL + shopItem.goodsImgUrl"/>
                 <div>商品名称：{{ shopItem.goodsName }}</div>
-                <div>商品价格(元)：{{ shopItem.goodsPrice }}</div>
                 <div>商品单位：{{ shopItem.goodsUnit }}</div>
                 <div>商品单位：{{ shopItem.goodsImgUrl }}</div>
                 <div>订购数量： {{shopItem.orderNum}}</div>
